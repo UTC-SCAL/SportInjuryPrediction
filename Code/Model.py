@@ -338,17 +338,17 @@ def generate_results(y_test, predictions, hist, fpr, tpr, roc_auc, i, folder):
 # Feather files are typically any file > 800 mb
 # This is done because Pycharm doesn't like CSV files above a certain size (it freezes the system)
 dataset = pandas.read_csv(
-    "../Excel & CSV Sheets/Grid Hex Layout/Negative Sample Data/Total Shift/TS Negatives No Split.csv")
+    "../Data/Sport Injury Data PCA.csv")
 # Select which type of test you want to do: this determines what columns are used
-dataset = test_type(dataset, 6)
+# dataset = test_type(dataset, 6)
 # Standardize the data before modelling
-dataset = standardize(dataset)
+# dataset = standardize(dataset)
 
 # Choose a folder for storing all of the results of the code in, including the model itself
 # Note, if the folder you specify doesn't exist, you'll have to create it
 # These are made for code automation later on
-folder = '../Graphs & Images/Hex Grid/Total Shift/No Split/Test 6/'
-modelname = "model_TS_hex_NoSplit.h5"
+folder = '../Modeling Results/'
+modelname = "model_SID_PCA.h5"
 
 ##Shuffling
 dataset = shuffle(dataset)
