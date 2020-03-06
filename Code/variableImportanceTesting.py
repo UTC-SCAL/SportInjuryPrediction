@@ -53,12 +53,12 @@ def univariateSelection(data):
 
     # If we want to MinMaxReduce the data (normalize it)
     # Get the columns of the data
-    columns = data.columns.values[0:len(data.columns.values)]
-    # Create the Scaler object
-    scaler = preprocessing.MinMaxScaler()
-    # Fit your data on the scaler object
-    scaled_df = scaler.fit_transform(data)
-    data = pandas.DataFrame(scaled_df, columns=columns)
+    # columns = data.columns.values[0:len(data.columns.values)]
+    # # Create the Scaler object
+    # scaler = preprocessing.MinMaxScaler()
+    # # Fit your data on the scaler object
+    # scaled_df = scaler.fit_transform(data)
+    # data = pandas.DataFrame(scaled_df, columns=columns)
 
     features = data.columns.values[1:len(data.columns.values)]
     X = data.loc[:, features].values  # Separating out the target variables
@@ -78,12 +78,12 @@ def univariateSelection(data):
 def featureSelection(data):
     # If we want to MinMaxReduce the data (normalize it)
     # Get the columns of the data
-    columns = data.columns.values[0:len(data.columns.values)]
-    # Create the Scaler object
-    scaler = preprocessing.MinMaxScaler()
-    # Fit your data on the scaler object
-    scaled_df = scaler.fit_transform(data)
-    data = pandas.DataFrame(scaled_df, columns=columns)
+    # columns = data.columns.values[0:len(data.columns.values)]
+    # # Create the Scaler object
+    # scaler = preprocessing.MinMaxScaler()
+    # # Fit your data on the scaler object
+    # scaled_df = scaler.fit_transform(data)
+    # data = pandas.DataFrame(scaled_df, columns=columns)
 
     features = data.columns.values[1:len(data.columns.values)]
     X = data.loc[:, features].values  # Separating out the target variables
@@ -114,12 +114,20 @@ def correlationHeatmap(data):
     top_corr_features = corrmat.index
     plt.figure(figsize=(30, 30))
     #plot heat map
-    g = sns.heatmap(data[top_corr_features].corr(), annot=False, cmap="RdYlGn")
+    g = sns.heatmap(data[top_corr_features].corr(), annot=True, cmap="RdYlGn")
     plt.show()
 
 
 data = pandas.read_csv("../Data/Sport Injury Data Cleaned.csv")
+data = data.drop(['concussionCount', 'bodyInjury_12mPrior', 'Height', 'Weight', 'BMI', 'MMOI', 'sleepStaminaProblems',
+                  'muscleControlProblems', 'balancePerceptionProblems', 'alteredSensations', 'emotionalProblems',
+                  'behaviorControl', 'memoryProblems', 'languageProblems', 'activityParticipation',
+                  'overallPerformance', 'speedPowerEndurance', 'skillPerformance', 'dailyResponsibilities',
+                  'positionCategory1', 'positionCategory2', 'Mean_AppAvgRT', 'Avg_RT_App', 'SD_AppAvgRT', 'SD_ConRT',
+                  'Mean_IncRT', 'SD_IncRT', 'CoV_AvgRT', 'CoV_ConRT', 'CoV_IncRT', 'ConRA'], axis=1)
 # PCA_testing(data)
 # univariateSelection(data)
-# featureSelection(data)
+featureSelection(data)
 # correlationHeatmap(data)
+
+

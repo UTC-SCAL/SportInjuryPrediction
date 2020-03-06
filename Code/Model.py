@@ -20,84 +20,6 @@ from os.path import exists
 import datetime
 
 
-def test_type(data, type):
-    """
-    An easy to use method for selecting which columns to use for the testing you do
-    Also serves as an easy way to find which variables are used in each test type
-    :param data:
-    :param type:
-    :return:
-    """
-    col1 = ['Accident', 'Clear', 'Cloudy', 'DayFrame', 'DayOfWeek', 'FUNC_CLASS', 'Foggy',
-            'Grid_Num', 'Hour', 'Join_Count', 'NBR_LANES', 'Rain', 'RainBefore', 'Snow', 'TY_TERRAIN', 'Unix',
-            'WeekDay', 'cloudCover', 'dewPoint', 'humidity', 'precipIntensity', 'temperature', 'windSpeed']
-
-    col2 = ['Accident', 'Clear', 'Cloudy', 'DayOfWeek', 'FUNC_CLASS', 'Foggy',
-            'Grid_Num', 'Hour', 'Join_Count', 'NBR_LANES', 'Rain', 'RainBefore', 'Snow', 'TY_TERRAIN', 'Unix',
-            'WeekDay', 'cloudCover', 'dewPoint', 'humidity', 'precipIntensity', 'temperature', 'windSpeed']
-
-    col3 = ['Accident', 'Clear', 'Cloudy', 'DayFrame', 'FUNC_CLASS', 'Foggy',
-            'Grid_Num', 'Join_Count', 'NBR_LANES', 'Rain', 'RainBefore', 'Snow', 'TY_TERRAIN',
-            'WeekDay', 'cloudCover', 'dewPoint', 'humidity', 'precipIntensity', 'temperature', 'windSpeed']
-
-    col4 = ['Accident', 'Clear', 'Cloudy', 'DayFrame', 'DayOfWeek', 'FUNC_CLASS', 'Foggy',
-            'Grid_Num', 'Hour', 'Join_Count', 'NBR_LANES', 'Rain', 'RainBefore', 'Snow', 'TY_TERRAIN', 'Unix',
-            'WeekDay', 'cloudCover', 'precipIntensity']
-
-    col5 = ['Accident', 'Clear', 'Cloudy', 'DayFrame', 'FUNC_CLASS', 'Foggy',
-            'Grid_Num', 'Join_Count', 'NBR_LANES', 'Rain', 'RainBefore', 'Snow', 'TY_TERRAIN',
-            'WeekDay', 'cloudCover', 'precipIntensity']
-
-    col6 = ['Accident', 'Clear', 'Cloudy', 'DayFrame', 'DayOfWeek', 'FUNC_CLASS', 'Foggy',
-            'Hour', 'Join_Count', 'NBR_LANES', 'Rain', 'RainBefore', 'Snow', 'TY_TERRAIN', 'Unix',
-            'WeekDay', 'cloudCover', 'dewPoint', 'humidity', 'precipIntensity', 'temperature', 'windSpeed']
-    if type == 1:
-        data = data.reindex(columns=col1)
-    elif type == 2:
-        data = data.reindex(columns=col2)
-    elif type == 3:
-        data = data.reindex(columns=col3)
-    elif type == 4:
-        data = data.reindex(columns=col4)
-    elif type == 5:
-        data = data.reindex(columns=col5)
-    elif type == 6:
-        data = data.reindex(columns=col6)
-
-    return data
-
-
-def get_difference():
-    """
-    A utility method for finding what variables were dropped between tests
-    """
-    col1 = ['Accident', 'Clear', 'Cloudy', 'DayFrame', 'DayOfWeek', 'FUNC_CLASS', 'Foggy',
-            'Grid_Num', 'Hour', 'Join_Count', 'NBR_LANES', 'Rain', 'RainBefore', 'Snow', 'TY_TERRAIN', 'Unix',
-            'WeekDay', 'cloudCover', 'dewPoint', 'humidity', 'precipIntensity', 'temperature', 'windSpeed']
-
-    col2 = ['Accident', 'Clear', 'Cloudy', 'DayOfWeek', 'FUNC_CLASS', 'Foggy',
-            'Grid_Num', 'Hour', 'Join_Count', 'NBR_LANES', 'Rain', 'RainBefore', 'Snow', 'TY_TERRAIN', 'Unix',
-            'WeekDay', 'cloudCover', 'dewPoint', 'humidity', 'precipIntensity', 'temperature', 'windSpeed']
-
-    col3 = ['Accident', 'Clear', 'Cloudy', 'DayFrame', 'FUNC_CLASS', 'Foggy',
-            'Grid_Num', 'Join_Count', 'NBR_LANES', 'Rain', 'RainBefore', 'Snow', 'TY_TERRAIN',
-            'WeekDay', 'cloudCover', 'dewPoint', 'humidity', 'precipIntensity', 'temperature', 'windSpeed']
-
-    col4 = ['Accident', 'Clear', 'Cloudy', 'DayFrame', 'DayOfWeek', 'FUNC_CLASS', 'Foggy',
-            'Grid_Num', 'Hour', 'Join_Count', 'NBR_LANES', 'Rain', 'RainBefore', 'Snow', 'TY_TERRAIN', 'Unix',
-            'WeekDay', 'cloudCover', 'precipIntensity']
-
-    col5 = ['Accident', 'Clear', 'Cloudy', 'DayFrame', 'FUNC_CLASS', 'Foggy',
-            'Grid_Num', 'Join_Count', 'NBR_LANES', 'Rain', 'RainBefore', 'Snow', 'TY_TERRAIN',
-            'WeekDay', 'cloudCover', 'precipIntensity']
-
-    col6 = ['Accident', 'Clear', 'Cloudy', 'DayFrame', 'DayOfWeek', 'FUNC_CLASS', 'Foggy',
-            'Hour', 'Join_Count', 'NBR_LANES', 'Rain', 'RainBefore', 'Snow', 'TY_TERRAIN', 'Unix',
-            'WeekDay', 'cloudCover', 'dewPoint', 'humidity', 'precipIntensity', 'temperature', 'windSpeed']
-
-    print("Variables Removed:", (set(col1).difference(col6)))
-
-
 def standardize(data):
     """
     This standardizes the data into the MinMaxReduced version used for model creation
@@ -256,8 +178,8 @@ def fitting_loops(X, Y, dataset, folder, modelname):
         avg_holder.to_csv(file, sep=",")
 
         # Saving every ten rounds,and the end, make some graphs:
-        if i % 10 == 0 or i == 49:
-            generate_results(y_test, predictions, hist, fpr, tpr, roc_auc, i, folder)
+        # if i % 10 == 0 or i == 49:
+        #     generate_results(y_test, predictions, hist, fpr, tpr, roc_auc, i, folder)
 
 
 def generate_results(y_test, predictions, hist, fpr, tpr, roc_auc, i, folder):
@@ -338,17 +260,23 @@ def generate_results(y_test, predictions, hist, fpr, tpr, roc_auc, i, folder):
 # Feather files are typically any file > 800 mb
 # This is done because Pycharm doesn't like CSV files above a certain size (it freezes the system)
 dataset = pandas.read_csv(
-    "../Data/Sport Injury Data PCA.csv")
+    "../Data/Sport Injury Data Cleaned.csv")
+dataset = dataset.drop(['concussionCount', 'bodyInjury_12mPrior', 'Height', 'Weight', 'BMI', 'MMOI', 'sleepStaminaProblems',
+                  'muscleControlProblems', 'balancePerceptionProblems', 'alteredSensations', 'emotionalProblems',
+                  'behaviorControl', 'memoryProblems', 'languageProblems', 'activityParticipation',
+                  'overallPerformance', 'speedPowerEndurance', 'skillPerformance', 'dailyResponsibilities',
+                  'positionCategory1', 'positionCategory2', 'Mean_AppAvgRT', 'Avg_RT_App', 'SD_AppAvgRT', 'SD_ConRT',
+                  'Mean_IncRT', 'SD_IncRT', 'CoV_AvgRT', 'CoV_ConRT', 'CoV_IncRT', 'ConRA'], axis=1)
 # Select which type of test you want to do: this determines what columns are used
 # dataset = test_type(dataset, 6)
 # Standardize the data before modelling
-# dataset = standardize(dataset)
+dataset = standardize(dataset)
 
 # Choose a folder for storing all of the results of the code in, including the model itself
 # Note, if the folder you specify doesn't exist, you'll have to create it
 # These are made for code automation later on
-folder = '../Modeling Results/'
-modelname = "model_SID_PCA.h5"
+folder = '../Modeling Results/MMR Versions/DroppedVars/'
+modelname = "model_SID_DroppedVars.h5"
 
 ##Shuffling
 dataset = shuffle(dataset)
