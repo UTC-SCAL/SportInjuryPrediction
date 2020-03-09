@@ -10,6 +10,7 @@ from sklearn.feature_selection import chi2
 from sklearn.ensemble import ExtraTreesClassifier
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy
 
 
 def PCA_testing(data):
@@ -109,25 +110,44 @@ def correlationHeatmap(data):
     scaled_df = scaler.fit_transform(data)
     data = pandas.DataFrame(scaled_df, columns=columns)
 
-    #get correlations of each features in dataset
-    corrmat = data.corr()
-    top_corr_features = corrmat.index
-    plt.figure(figsize=(30, 30))
-    #plot heat map
-    g = sns.heatmap(data[top_corr_features].corr(), annot=True, cmap="RdYlGn")
+    # Version 1
+    # get correlations of each features in dataset
+    # corrmat = data.corr()
+    # top_corr_features = corrmat.index
+    # plt.figure(figsize=(30, 30))
+    # #plot heat map
+    # g = sns.heatmap(data[top_corr_features].corr(), annot=True, cmap="RdYlGn")
+    # plt.show()
+
+    # Version 2
+    # This version allows for the creation of a heatmap that removes redundancy (takes away the top right half of the
+    # heatmap for less noise)
+    # Create the correlation dataframe
+    corr = data.corr()
+    # Drop self-correlations
+    dropSelf = numpy.zeros_like(corr)
+    dropSelf[numpy.triu_indices_from(dropSelf)] = True
+    # Generate color map
+    colormap = sns.diverging_palette(220, 10, as_cmap=True)
+    # Generate the heatmap, allowing annotations and place floats in the map
+    sns.heatmap(corr, cmap=colormap, annot=False, fmt='.2f', mask=dropSelf)
+    # xticks
+    plt.xticks(range(len(corr.columns)), corr.columns)
+    # yticks
+    plt.yticks(range(len(corr.columns)), corr.columns)
     plt.show()
 
 
 data = pandas.read_csv("../Data/Sport Injury Data Cleaned.csv")
-data = data.drop(['concussionCount', 'bodyInjury_12mPrior', 'Height', 'Weight', 'BMI', 'MMOI', 'sleepStaminaProblems',
-                  'muscleControlProblems', 'balancePerceptionProblems', 'alteredSensations', 'emotionalProblems',
-                  'behaviorControl', 'memoryProblems', 'languageProblems', 'activityParticipation',
-                  'overallPerformance', 'speedPowerEndurance', 'skillPerformance', 'dailyResponsibilities',
-                  'positionCategory1', 'positionCategory2', 'Mean_AppAvgRT', 'Avg_RT_App', 'SD_AppAvgRT', 'SD_ConRT',
-                  'Mean_IncRT', 'SD_IncRT', 'CoV_AvgRT', 'CoV_ConRT', 'CoV_IncRT', 'ConRA'], axis=1)
+# data = data.drop(['concussionCount', 'bodyInjury_12mPrior', 'Height', 'Weight', 'BMI', 'MMOI', 'sleepStaminaProblems',
+#                   'muscleControlProblems', 'balancePerceptionProblems', 'alteredSensations', 'emotionalProblems',
+#                   'behaviorControl', 'memoryProblems', 'languageProblems', 'activityParticipation',
+#                   'overallPerformance', 'speedPowerEndurance', 'skillPerformance', 'dailyResponsibilities',
+#                   'positionCategory1', 'positionCategory2', 'Mean_AppAvgRT', 'Avg_RT_App', 'SD_AppAvgRT', 'SD_ConRT',
+#                   'Mean_IncRT', 'SD_IncRT', 'CoV_AvgRT', 'CoV_ConRT', 'CoV_IncRT', 'ConRA'], axis=1)
 # PCA_testing(data)
 # univariateSelection(data)
-featureSelection(data)
-# correlationHeatmap(data)
+# featureSelection(data)
+correlationHeatmap(data)
 
 
