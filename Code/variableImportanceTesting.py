@@ -50,20 +50,20 @@ def PCA_testing(data):
 
 def univariateSelection(data):
     # Drop this column since it has a negative in it, and feature selection doesn't accept negatives
-    data = data.drop(['ConflictEffect'], axis=1)
+    # data = data.drop(['ConflictEffect'], axis=1)
 
     # If we want to MinMaxReduce the data (normalize it)
     # Get the columns of the data
-    # columns = data.columns.values[0:len(data.columns.values)]
-    # # Create the Scaler object
-    # scaler = preprocessing.MinMaxScaler()
-    # # Fit your data on the scaler object
-    # scaled_df = scaler.fit_transform(data)
-    # data = pandas.DataFrame(scaled_df, columns=columns)
+    columns = data.columns.values[0:len(data.columns.values)]
+    # Create the Scaler object
+    scaler = preprocessing.MinMaxScaler()
+    # Fit your data on the scaler object
+    scaled_df = scaler.fit_transform(data)
+    data = pandas.DataFrame(scaled_df, columns=columns)
 
     features = data.columns.values[1:len(data.columns.values)]
     X = data.loc[:, features].values  # Separating out the target variables
-    y = data.loc[:, ['BodyInjury']].values  # dependent variable
+    y = data.loc[:, ['AnyInj_S']].values  # dependent variable
 
     bestFeatures = SelectKBest(score_func=chi2, k=10)
     fit = bestFeatures.fit(X, y)
@@ -79,16 +79,16 @@ def univariateSelection(data):
 def featureSelection(data):
     # If we want to MinMaxReduce the data (normalize it)
     # Get the columns of the data
-    # columns = data.columns.values[0:len(data.columns.values)]
-    # # Create the Scaler object
-    # scaler = preprocessing.MinMaxScaler()
-    # # Fit your data on the scaler object
-    # scaled_df = scaler.fit_transform(data)
-    # data = pandas.DataFrame(scaled_df, columns=columns)
+    columns = data.columns.values[0:len(data.columns.values)]
+    # Create the Scaler object
+    scaler = preprocessing.MinMaxScaler()
+    # Fit your data on the scaler object
+    scaled_df = scaler.fit_transform(data)
+    data = pandas.DataFrame(scaled_df, columns=columns)
 
     features = data.columns.values[1:len(data.columns.values)]
     X = data.loc[:, features].values  # Separating out the target variables
-    y = data.loc[:, ['BodyInjury']].values  # dependent variable
+    y = data.loc[:, ['AnyInj_S']].values  # dependent variable
 
     model = ExtraTreesClassifier()
     model.fit(X, y)
@@ -138,16 +138,9 @@ def correlationHeatmap(data):
     plt.show()
 
 
-data = pandas.read_csv("../Data/Sport Injury Data Cleaned.csv")
-# data = data.drop(['concussionCount', 'bodyInjury_12mPrior', 'Height', 'Weight', 'BMI', 'MMOI', 'sleepStaminaProblems',
-#                   'muscleControlProblems', 'balancePerceptionProblems', 'alteredSensations', 'emotionalProblems',
-#                   'behaviorControl', 'memoryProblems', 'languageProblems', 'activityParticipation',
-#                   'overallPerformance', 'speedPowerEndurance', 'skillPerformance', 'dailyResponsibilities',
-#                   'positionCategory1', 'positionCategory2', 'Mean_AppAvgRT', 'Avg_RT_App', 'SD_AppAvgRT', 'SD_ConRT',
-#                   'Mean_IncRT', 'SD_IncRT', 'CoV_AvgRT', 'CoV_ConRT', 'CoV_IncRT', 'ConRA'], axis=1)
+data = pandas.read_csv("../Data/2019 Football Player Data Cleaned.csv")
+# data = data.drop([], axis=1)
 # PCA_testing(data)
 # univariateSelection(data)
 # featureSelection(data)
-correlationHeatmap(data)
-
-
+# correlationHeatmap(data)
