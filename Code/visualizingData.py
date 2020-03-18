@@ -23,4 +23,4 @@ def compareGraph(preSeason, duringSeason, variable):
 preSeason = pandas.read_csv("../Data/Query Results Pre Season.csv")
 duringSeason = pandas.read_csv("../Data/Query Results During Season.csv")
 print(preSeason.columns)
-# compareGraph(preSeason, duringSeason, "")
+compareGraph(preSeason, duringSeason, "correct_percent")
