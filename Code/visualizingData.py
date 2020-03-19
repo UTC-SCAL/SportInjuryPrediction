@@ -15,20 +15,19 @@ def compareGraph(preSeason, duringSeason, variableGraphed, variableCut, ylimit):
     preS_values = ax1.bar(xValues, preSeason[variableGraphed].values, width=w, color='b', align='center')
 
     # The trick is to use two different axes that share the same x axis, we have used ax1.twinx() method
-    # Since we set the y limit before calling twinx, ax2 now has the same ylimit as ax1
-    ax1.set_ylim([0, ylimit + 50])
     ax2 = ax1.twinx()
 
     durS_values = ax2.bar(xValues+w, duringSeason[variableGraphed].values, width=w, color='g', align='center')
     plt.legend([preS_values, durS_values], ['Pre Season', 'During Season'])
-
+    ax1.set_ylim([0, ylimit + 50])
+    ax2.set_ylim([0, ylimit + 50])
     # Change the title of the graph based on how you cut the data
     plt.title("Pre Season vs During Season (%s)" % variableCut)
     plt.show()
 
 
-variableCut = 'CLEI_PreS'  # variable used to split the data
-variableGraphed = "inc_RT"  # variable you want to graph
+variableCut = 'AnyInj_PreS'  # variable used to split the data
+variableGraphed = "efficiency"  # variable you want to graph
 # In the cut versions of the data below, change the value after == to determine how you want the data cut
 preSeason = pandas.read_csv("../Data/Query Results Pre Season.csv")
 preSeason_cut = preSeason[preSeason[variableCut] == 1]
