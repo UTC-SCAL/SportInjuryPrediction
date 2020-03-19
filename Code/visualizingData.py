@@ -23,19 +23,20 @@ def compareGraph(preSeason, duringSeason, variableGraphed, variableCut, ylimit):
     plt.legend([preS_values, durS_values], ['Pre Season', 'During Season'])
 
     # Change the title of the graph based on how you cut the data
-    plt.title("Pre Season vs During Season (No %s)" % variableCut)
+    plt.title("Pre Season vs During Season (%s)" % variableCut)
     plt.show()
 
 
 variableCut = 'CLEI_PreS'  # variable used to split the data
-variableGraphed = "Avg_RT"  # variable you want to graph
+variableGraphed = "inc_RT"  # variable you want to graph
 # In the cut versions of the data below, change the value after == to determine how you want the data cut
 preSeason = pandas.read_csv("../Data/Query Results Pre Season.csv")
-preSeason_cut = preSeason[preSeason[variableCut] == 0]
+preSeason_cut = preSeason[preSeason[variableCut] == 1]
 duringSeason = pandas.read_csv("../Data/Query Results During Season.csv")
-duringSeason_cut = duringSeason[duringSeason[variableCut] == 0]
+duringSeason_cut = duringSeason[duringSeason[variableCut] == 1]
 
 print(preSeason.columns)
+# exit()
 # Get the maximum value possible between the two lists you want to graph
 ylimit = max(max(preSeason[variableGraphed].values), max(duringSeason[variableGraphed].values))
 
