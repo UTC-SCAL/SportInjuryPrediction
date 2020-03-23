@@ -54,12 +54,12 @@ def univariateSelection(data):
 
     # If we want to MinMaxReduce the data (normalize it)
     # Get the columns of the data
-    columns = data.columns.values[0:len(data.columns.values)]
-    # Create the Scaler object
-    scaler = preprocessing.MinMaxScaler()
-    # Fit your data on the scaler object
-    scaled_df = scaler.fit_transform(data)
-    data = pandas.DataFrame(scaled_df, columns=columns)
+    # columns = data.columns.values[0:len(data.columns.values)]
+    # # Create the Scaler object
+    # scaler = preprocessing.MinMaxScaler()
+    # # Fit your data on the scaler object
+    # scaled_df = scaler.fit_transform(data)
+    # data = pandas.DataFrame(scaled_df, columns=columns)
 
     features = data.columns.values[1:len(data.columns.values)]
     X = data.loc[:, features].values  # Separating out the target variables
@@ -79,16 +79,16 @@ def univariateSelection(data):
 def featureSelection(data):
     # If we want to MinMaxReduce the data (normalize it)
     # Get the columns of the data
-    columns = data.columns.values[0:len(data.columns.values)]
-    # Create the Scaler object
-    scaler = preprocessing.MinMaxScaler()
-    # Fit your data on the scaler object
-    scaled_df = scaler.fit_transform(data)
-    data = pandas.DataFrame(scaled_df, columns=columns)
+    # columns = data.columns.values[0:len(data.columns.values)]
+    # # Create the Scaler object
+    # scaler = preprocessing.MinMaxScaler()
+    # # Fit your data on the scaler object
+    # scaled_df = scaler.fit_transform(data)
+    # data = pandas.DataFrame(scaled_df, columns=columns)
 
     features = data.columns.values[1:len(data.columns.values)]
     X = data.loc[:, features].values  # Separating out the target variables
-    y = data.loc[:, ['AnyInj_S']].values  # dependent variable
+    y = data.loc[:, ['CLEI_PreS_or_S']].values  # dependent variable
 
     model = ExtraTreesClassifier()
     model.fit(X, y)
@@ -97,6 +97,8 @@ def featureSelection(data):
     # plot graph of feature importances for better visualization
     feat_importances = pandas.Series(model.feature_importances_, index=features)
     feat_importances.nlargest(10).plot(kind='barh')
+    plt.xlim(0, .50)
+    plt.title("Feature Selection CLEI_PreS_or_S")
     plt.show()
 
 
@@ -138,9 +140,10 @@ def correlationHeatmap(data):
     plt.show()
 
 
-# data = pandas.read_csv("../")
-# data = data.drop([], axis=1)
+data = pandas.read_csv("../Data/2019 Football Player Data.csv")
+data = data.drop(['ID', 'CLEI_S', 'AnyInj_PreS_or_S', 'AnyInj_PreS', 'CLEI_PreS', 'AnyInj_S', 'GameExposure_Any',
+                  'Age'], axis=1)
 # PCA_testing(data)
 # univariateSelection(data)
-# featureSelection(data)
+featureSelection(data)
 # correlationHeatmap(data)
