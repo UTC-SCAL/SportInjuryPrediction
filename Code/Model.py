@@ -260,13 +260,9 @@ def generate_results(y_test, predictions, hist, fpr, tpr, roc_auc, i, folder):
 # Feather files are typically any file > 800 mb
 # This is done because Pycharm doesn't like CSV files above a certain size (it freezes the system)
 dataset = pandas.read_csv(
-    "../Data/Sport Injury Data Cleaned.csv")
-dataset = dataset.drop(['concussionCount', 'bodyInjury_12mPrior', 'Height', 'Weight', 'BMI', 'MMOI', 'sleepStaminaProblems',
-                  'muscleControlProblems', 'balancePerceptionProblems', 'alteredSensations', 'emotionalProblems',
-                  'behaviorControl', 'memoryProblems', 'languageProblems', 'activityParticipation',
-                  'overallPerformance', 'speedPowerEndurance', 'skillPerformance', 'dailyResponsibilities',
-                  'positionCategory1', 'positionCategory2', 'Mean_AppAvgRT', 'Avg_RT_App', 'SD_AppAvgRT', 'SD_ConRT',
-                  'Mean_IncRT', 'SD_IncRT', 'CoV_AvgRT', 'CoV_ConRT', 'CoV_IncRT', 'ConRA'], axis=1)
+    "../Data/2019 Football Player Data.csv")
+dataset = dataset.drop(['ID', 'CLEI_PreS_or_S', 'AnyInj_PreS_or_S', 'AnyInj_PreS', 'CLEI_PreS', 'AnyInj_S', 'GameExposure_Any',
+                  'Age'], axis=1)
 # Select which type of test you want to do: this determines what columns are used
 # dataset = test_type(dataset, 6)
 # Standardize the data before modelling
@@ -275,8 +271,8 @@ dataset = standardize(dataset)
 # Choose a folder for storing all of the results of the code in, including the model itself
 # Note, if the folder you specify doesn't exist, you'll have to create it
 # These are made for code automation later on
-folder = '../Modeling Results/MMR Versions/DroppedVars/'
-modelname = "model_SID_DroppedVars.h5"
+folder = '../Modeling Results/'
+modelname = "model_SIP_CLEI_S.h5"
 
 ##Shuffling
 dataset = shuffle(dataset)
