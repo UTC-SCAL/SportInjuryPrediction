@@ -88,7 +88,7 @@ def featureSelection(data):
 
     features = data.columns.values[1:len(data.columns.values)]
     X = data.loc[:, features].values  # Separating out the target variables
-    y = data.loc[:, ['CLEI_PreS_or_S']].values  # dependent variable
+    y = data.loc[:, ['CLEI_S']].values  # dependent variable
 
     model = ExtraTreesClassifier()
     model.fit(X, y)
@@ -98,7 +98,7 @@ def featureSelection(data):
     feat_importances = pandas.Series(model.feature_importances_, index=features)
     feat_importances.nlargest(10).plot(kind='barh')
     plt.xlim(0, .50)
-    plt.title("Feature Selection CLEI_PreS_or_S")
+    plt.title("Feature Selection CLEI_S")
     plt.show()
 
 
@@ -141,7 +141,7 @@ def correlationHeatmap(data):
 
 
 data = pandas.read_csv("../Data/2019 Football Player Data.csv")
-data = data.drop(['ID', 'CLEI_S', 'AnyInj_PreS_or_S', 'AnyInj_PreS', 'CLEI_PreS', 'AnyInj_S', 'GameExposure_Any',
+data = data.drop(['ID', 'CLEI_PreS_or_S', 'AnyInj_PreS_or_S', 'AnyInj_PreS', 'CLEI_PreS', 'AnyInj_S', 'GameExposure_Any',
                   'Age'], axis=1)
 # PCA_testing(data)
 # univariateSelection(data)
