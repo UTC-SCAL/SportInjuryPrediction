@@ -398,7 +398,7 @@ def generate_results(y_test, predictions, hist, fpr, tpr, roc_auc, i, folder):
 dataset = pandas.read_csv(
     "../Data/2019 Football Player Data Alt.csv")
 # dataset = dataset.drop(['ID'], axis=1)
-dataset = dataset.drop(['ID', 'CLEI_PreS_or_S','AnyInj_PreS_or_S','AnyInj_PreS',"CLEI_PreS",'CLEI_S'], axis=1)
+dataset = dataset.drop(['ID', 'CLEI_PreS_or_S','AnyInj_PreS_or_S','AnyInj_PreS',"CLEI_PreS",'AnyInj_S'], axis=1)
 # Select which type of test you want to do: this determines what columns are used
 # dataset = test_type(dataset, 6)
 # Standardize the data before modelling
