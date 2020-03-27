@@ -183,7 +183,7 @@ def fitting_loops(X, Y, dataset, folder, modelname):
         #     generate_results(y_test, predictions, hist, fpr, tpr, roc_auc, i, folder)
 
 
-def modelRun(X, Y, dataset, folder, modelname, testID):
+def modelRun(X, Y, folder, modelname, testID):
     ##2. Defining a Neural Network
     # Model creation
     model = Sequential()
@@ -210,10 +210,7 @@ def modelRun(X, Y, dataset, folder, modelname, testID):
     # File path to hold results of learning cycle
     file = folder + testID + " Modelling Results.csv"
 
-    ##Creating X and Y. Accident is the first column, therefore it is 0.
-    # X = dataset.iloc[:, 1:(len(dataset.columns) + 1)].values  # Our independent variables
-    # Y = dataset.iloc[:, 0].values  # Our dependent variable
-    for i in range(0, 1):
+    for i in range(0, 5):
         ##Splitting data into train and test.
         X_train, X_test, y_train, y_test = train_test_split(
             X, Y, test_size=0.30, random_state=42)
@@ -399,9 +396,9 @@ def generate_results(y_test, predictions, hist, fpr, tpr, roc_auc, i, folder):
 # Feather files are typically any file > 800 mb
 # This is done because Pycharm doesn't like CSV files above a certain size (it freezes the system)
 dataset = pandas.read_csv(
-    "../Data/2019 Football Player Data.csv")
-dataset = dataset.drop(['ID', 'CLEI_PreS_or_S', 'AnyInj_PreS_or_S', 'AnyInj_PreS', 'CLEI_PreS', 'AnyInj_S', 'GameExposure_Any',
-                  'Age'], axis=1)
+    "../Data/2019 Football Player Data Alt.csv")
+# dataset = dataset.drop(['ID'], axis=1)
+dataset = dataset.drop(['ID', 'CLEI_PreS_or_S','AnyInj_PreS_or_S','AnyInj_PreS',"CLEI_PreS",'CLEI_S'], axis=1)
 # Select which type of test you want to do: this determines what columns are used
 # dataset = test_type(dataset, 6)
 # Standardize the data before modelling
@@ -411,7 +408,7 @@ dataset = standardize(dataset)
 # Note, if the folder you specify doesn't exist, you'll have to create it
 # These are made for code automation later on
 folder = '../Modeling Results/'
-modelname = "model_SIP_CLEI_S.h5"
+modelname = "model_SIP_CLEI_FBDataAltv2.h5"
 
 ##Shuffling
 dataset = shuffle(dataset)
@@ -420,4 +417,4 @@ X = dataset.iloc[:, 1:(len(dataset.columns) + 1)].values  # Our independent vari
 Y = dataset.iloc[:, 0].values  # Our dependent variable
 
 ##Steps 2-5 are inside the fitting loops method
-modelRun(X, Y, dataset, folder, modelname, "No Cycles")
+modelRun(X, Y, folder, modelname, "FBData Alt v2, 5 Cycles")
