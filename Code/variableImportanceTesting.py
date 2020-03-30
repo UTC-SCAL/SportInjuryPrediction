@@ -140,9 +140,9 @@ def correlationHeatmap(data):
     plt.show()
 
 
-data = pandas.read_csv("../Data/2019 Football Player Data.csv")
-data = data.drop(['ID', 'CLEI_PreS_or_S', 'AnyInj_PreS_or_S', 'AnyInj_PreS', 'CLEI_PreS', 'AnyInj_S', 'GameExposure_Any',
-                  'Age'], axis=1)
+data = pandas.read_csv("../Data/2019 FB Deidentified with App Data_cleaned.csv")
+# data = data.drop(['ID', 'CLEI_PreS_or_S', 'AnyInj_PreS_or_S', 'AnyInj_PreS', 'CLEI_PreS', 'AnyInj_S'], axis=1)
+data = data.drop(['ID'], axis=1)
 # PCA_testing(data)
 # univariateSelection(data)
 featureSelection(data)
