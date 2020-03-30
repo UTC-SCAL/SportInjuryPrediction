@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 from sklearn.metrics import confusion_matrix
 from sklearn import preprocessing
+import random
 
 # Import matplotlib pyplot safely
 try:
@@ -408,10 +409,11 @@ dataset = standardize(dataset)
 # Note, if the folder you specify doesn't exist, you'll have to create it
 # These are made for code automation later on
 folder = '../Modeling Results/'
-modelname = "model_SIP_CLEI_FBDataAltv2.h5"
+modelname = "model_SIP_CLEI_FBDataAltv2Fixed.h5"
 
 ##Shuffling
-dataset = shuffle(dataset)
+
+dataset = random.Random(1).shuffle(dataset)
 ##Creating X and Y. Accident is the first column, therefore it is 0.
 X = dataset.iloc[:, 1:(len(dataset.columns) + 1)].values  # Our independent variables
 Y = dataset.iloc[:, 0].values  # Our dependent variable
