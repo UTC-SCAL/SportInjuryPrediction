@@ -7,7 +7,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 from sklearn.metrics import confusion_matrix
 from sklearn import preprocessing
-import random
 
 # Import matplotlib pyplot safely
 try:
@@ -397,9 +396,10 @@ def generate_results(y_test, predictions, hist, fpr, tpr, roc_auc, i, folder):
 # Feather files are typically any file > 800 mb
 # This is done because Pycharm doesn't like CSV files above a certain size (it freezes the system)
 dataset = pandas.read_csv(
-    "../Data/2019 Football Player Data Alt.csv")
-# dataset = dataset.drop(['ID'], axis=1)
-dataset = dataset.drop(['ID', 'CLEI_PreS_or_S','AnyInj_PreS_or_S','AnyInj_PreS',"CLEI_PreS",'AnyInj_S'], axis=1)
+    "../Data/2019 FB Deidentified with App Data_cleaned.csv")
+dataset = dataset.drop(['ID'], axis=1)
+# dataset = dataset.drop(['ID', 'CLEI_PreS_or_S','AnyInj_PreS_or_S','AnyInj_PreS',"CLEI_PreS",'AnyInj_S'], axis=1)
+
 # Select which type of test you want to do: this determines what columns are used
 # dataset = test_type(dataset, 6)
 # Standardize the data before modelling
@@ -409,14 +409,13 @@ dataset = standardize(dataset)
 # Note, if the folder you specify doesn't exist, you'll have to create it
 # These are made for code automation later on
 folder = '../Modeling Results/'
-modelname = "model_SIP_CLEI_FBDataAltv2Fixed.h5"
+modelname = "model_SIP_CLEI_DeidentifiedCleaned.h5"
 
 ##Shuffling
-
-dataset = random.Random(1).shuffle(dataset)
+dataset = shuffle(dataset)
 ##Creating X and Y. Accident is the first column, therefore it is 0.
 X = dataset.iloc[:, 1:(len(dataset.columns) + 1)].values  # Our independent variables
 Y = dataset.iloc[:, 0].values  # Our dependent variable
 
 ##Steps 2-5 are inside the fitting loops method
-modelRun(X, Y, folder, modelname, "FBData Alt v2, 5 Cycles")
+modelRun(X, Y, folder, modelname, "Deidentified Cleaned")
