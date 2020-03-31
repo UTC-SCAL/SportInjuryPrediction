@@ -77,18 +77,9 @@ def univariateSelection(data):
 
 
 def featureSelection(data):
-    # If we want to MinMaxReduce the data (normalize it)
-    # Get the columns of the data
-    # columns = data.columns.values[0:len(data.columns.values)]
-    # # Create the Scaler object
-    # scaler = preprocessing.MinMaxScaler()
-    # # Fit your data on the scaler object
-    # scaled_df = scaler.fit_transform(data)
-    # data = pandas.DataFrame(scaled_df, columns=columns)
-
     features = data.columns.values[1:len(data.columns.values)]
     X = data.loc[:, features].values  # Separating out the target variables
-    y = data.loc[:, ['CLEI_S']].values  # dependent variable
+    y = data.loc[:, ['CLEI']].values  # dependent variable
 
     model = ExtraTreesClassifier()
     model.fit(X, y)
@@ -98,30 +89,11 @@ def featureSelection(data):
     feat_importances = pandas.Series(model.feature_importances_, index=features)
     feat_importances.nlargest(10).plot(kind='barh')
     plt.xlim(0, .50)
-    plt.title("Feature Selection CLEI_S")
+    plt.title("Feature Selection on Highschool Data: CLEI")
     plt.show()
 
 
 def correlationHeatmap(data):
-    # If we want to MinMaxReduce the data (normalize it)
-    # Get the columns of the data
-    columns = data.columns.values[0:len(data.columns.values)]
-    # Create the Scaler object
-    scaler = preprocessing.MinMaxScaler()
-    # Fit your data on the scaler object
-    scaled_df = scaler.fit_transform(data)
-    data = pandas.DataFrame(scaled_df, columns=columns)
-
-    # Version 1
-    # get correlations of each features in dataset
-    # corrmat = data.corr()
-    # top_corr_features = corrmat.index
-    # plt.figure(figsize=(30, 30))
-    # #plot heat map
-    # g = sns.heatmap(data[top_corr_features].corr(), annot=True, cmap="RdYlGn")
-    # plt.show()
-
-    # Version 2
     # This version allows for the creation of a heatmap that removes redundancy (takes away the top right half of the
     # heatmap for less noise)
     # Create the correlation dataframe
@@ -137,13 +109,14 @@ def correlationHeatmap(data):
     plt.xticks(range(len(corr.columns)), corr.columns)
     # yticks
     plt.yticks(range(len(corr.columns)), corr.columns)
+    plt.title("Correlation Heatmap on Highschool Data")
     plt.show()
 
 
-data = pandas.read_csv("../Data/2019 FB Deidentified with App Data_cleaned.csv")
+data = pandas.read_csv("../Data/High School Football Data_cleaned.csv")
 # data = data.drop(['ID', 'CLEI_PreS_or_S', 'AnyInj_PreS_or_S', 'AnyInj_PreS', 'CLEI_PreS', 'AnyInj_S'], axis=1)
 data = data.drop(['ID'], axis=1)
 # PCA_testing(data)
 # univariateSelection(data)
-featureSelection(data)
-# correlationHeatmap(data)
+# featureSelection(data)
+correlationHeatmap(data)
