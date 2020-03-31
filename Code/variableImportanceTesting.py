@@ -76,7 +76,7 @@ def univariateSelection(data):
     print(featureScores.nlargest(10,'Score'))  # print 10 best features
 
 
-def featureSelection(data):
+def featureSelection(data, dataSource):
     features = data.columns.values[1:len(data.columns.values)]
     X = data.loc[:, features].values  # Separating out the target variables
     y = data.loc[:, ['CLEI']].values  # dependent variable
@@ -87,36 +87,41 @@ def featureSelection(data):
 
     # plot graph of feature importances for better visualization
     feat_importances = pandas.Series(model.feature_importances_, index=features)
-    feat_importances.nlargest(10).plot(kind='barh')
+    feat_importances.nlargest(15).plot(kind='barh')
     plt.xlim(0, .50)
-    plt.title("Feature Selection on Highschool Data: CLEI")
+    plt.title("Feature Selection on %s Data: CLEI" % dataSource)
     plt.show()
 
 
-def correlationHeatmap(data):
+def correlationHeatmap(data, dataSource):
     # This version allows for the creation of a heatmap that removes redundancy (takes away the top right half of the
     # heatmap for less noise)
     # Create the correlation dataframe
-    corr = data.corr()
+
+    # If you want an easier time comparing numbers, you can take the absolute value of the correlations
+    corr = abs(data.corr())
+    # corr = data.corr()
+
     # Drop self-correlations
     dropSelf = numpy.zeros_like(corr)
     dropSelf[numpy.triu_indices_from(dropSelf)] = True
     # Generate color map
-    colormap = sns.diverging_palette(220, 10, as_cmap=True)
+    # colormap = sns.diverging_palette(220, 10, as_cmap=True)
     # Generate the heatmap, allowing annotations and place floats in the map
-    sns.heatmap(corr, cmap=colormap, annot=False, fmt='.2f', mask=dropSelf)
+    sns.heatmap(corr, cmap='Greens', annot=True, fmt='.2f', mask=dropSelf)
     # xticks
     plt.xticks(range(len(corr.columns)), corr.columns)
     # yticks
     plt.yticks(range(len(corr.columns)), corr.columns)
-    plt.title("Correlation Heatmap on Highschool Data")
+    plt.title("Correlation Heatmap on %s Data" % dataSource)
     plt.show()
 
 
 data = pandas.read_csv("../Data/High School Football Data_cleaned.csv")
+dataSource = "Highschool"
 # data = data.drop(['ID', 'CLEI_PreS_or_S', 'AnyInj_PreS_or_S', 'AnyInj_PreS', 'CLEI_PreS', 'AnyInj_S'], axis=1)
 data = data.drop(['ID'], axis=1)
 # PCA_testing(data)
 # univariateSelection(data)
-# featureSelection(data)
-correlationHeatmap(data)
+featureSelection(data, dataSource)
+# correlationHeatmap(data, dataSource)
