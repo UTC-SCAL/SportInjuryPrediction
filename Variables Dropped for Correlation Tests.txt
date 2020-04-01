@@ -6,4 +6,6 @@ UTC Dataset:
     'PosCat_2_TEasLine']
 
 Highschool Dataset:
-	['ID', 'SFWI', 'mTBIHx_Number', 'ConCRT', 'AppCRT', 'IncCRT', 'ConCRT']
+	['ID', 'SFWI', 'mTBIHx_Number', 'ConCRT', 'AppCRT', 'IncCRT', 'ConCRT'].
+
+Test Used for Feature Selection: Extra Trees Classifier from sklearn

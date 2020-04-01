@@ -119,8 +119,6 @@ def correlationHeatmap(data, dataSource):
 
 data = pandas.read_csv("../Data/UTC Football Data_cleaned.csv")
 dataSource = "UTC"
-# data = data.drop(['ID', 'CoV_AvgRT', 'CoV_ConRT', 'CoV_IncRT', 'Cx_Number', 'OWI_1_Any12mo', 'OWI_1_Any12mo',
-#                         'SD_ConRT', 'SD_IncRT', 'SD_AppAvgRT', 'AppAvgEfficiencyIndex'], axis=1)
 data = data.drop(['ID'], axis=1)
 # PCA_testing(data)
 # univariateSelection(data)
