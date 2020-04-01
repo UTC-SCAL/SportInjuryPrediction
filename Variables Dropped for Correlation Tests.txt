@@ -1,0 +1,9 @@
+Variables Dropped for Correlation Tests:
+UTC Dataset:
+	['ID', 'CoV_AvgRT', 'CoV_ConRT', 'CoV_IncRT', 'Cx_Number', 'OWI_1_Any12mo',
+    'SD_ConRT', 'SD_IncRT', 'SD_AppAvgRT', 'AppAvgEfficiencyIndex', 'RevOWI_Item1',
+    'SFI_1','SFI_2','SFI_3','SFI_4','SFI_5','SFI_6','SFI_7',"SFI_8",'SFI_9','SFI_10', 'BMI', 'MMOI',
+    'PosCat_2_TEasLine']
+
+Highschool Dataset:
+	['ID', 'SFWI', 'mTBIHx_Number', 'ConCRT', 'AppCRT', 'IncCRT', 'ConCRT']

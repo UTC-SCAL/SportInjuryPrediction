@@ -45,8 +45,9 @@ def modelRun(X, Y, folder, modelname, testID):
 
     # Hidden Layers
     # Use for standard sized variable set
-    model.add(Dense(X.shape[1] - 5, activation='sigmoid'))
-    model.add(Dense(X.shape[1] - 10, activation='sigmoid'))
+    model.add(Dense(X.shape[1] - 3, activation='sigmoid'))
+    model.add(Dense(X.shape[1] - 6, activation='sigmoid'))
+    model.add(Dense(X.shape[1] - 12, activation='sigmoid'))
 
     # model.add(Dense(X.shape[1] - 10, activation='sigmoid'))
     # model.add(Dense(X.shape[1] - 15, activation='sigmoid'))
@@ -183,12 +184,14 @@ def modelRun(X, Y, folder, modelname, testID):
 # Depending on the size of your dataset that you're reading in, you choose either csv or feather
 # Feather files are typically any file > 800 mb
 # This is done because Pycharm doesn't like CSV files above a certain size (it freezes the system)
-dataset = pandas.read_csv("../Data/High School Football Data_cleaned.csv")
-# dataset = dataset.reindex(columns=[])
+dataset = pandas.read_csv("../Data/UTC Football Data_cleaned.csv")
+# dataset = dataset.reindex(columns=['CLEI', 'HiIncRT_507', 'OWI_1_Any12mo', 'RevOWI_Item1', 'SFI_6', 'OWI_1',
+#                                    'SD_AppAvgRT', 'Ht_m', 'BMI', 'SFI_8', 'Mean_IncRT', 'SFI_2', 'OWI_6', 'CoV_ConRT', 'SFI_4', 'AvgRA'])
 # dataset = dataset.drop(['ID', 'SFWI', 'mTBIHx_Number', 'ConCRT', 'AppCRT', 'IncCRT', 'ConCRT'], axis=1)
-dataset = dataset.drop(['ID', 'CoV_AvgRT', 'CoV_ConRT', 'CoV_IncRT', 'Cx_Number', 'OWI_1_Any12mo',
-                        'SD_ConRT', 'SD_IncRT', 'SD_AppAvgRT', 'AppAvgEfficiencyIndex', 'RevOWI_Item1',
-                        'SFI_1','SFI_2','SFI_3','SFI_4','SFI_5','SFI_6','SFI_7',"SFI_8",'SFI_9','SFI_10'], axis=1)
+# dataset = dataset.drop(['ID', 'CoV_AvgRT', 'CoV_ConRT', 'CoV_IncRT', 'Cx_Number', 'OWI_1_Any12mo',
+#                         'SD_ConRT', 'SD_IncRT', 'SD_AppAvgRT', 'AppAvgEfficiencyIndex', 'RevOWI_Item1',
+#                         'SFI_1','SFI_2','SFI_3','SFI_4','SFI_5','SFI_6','SFI_7',"SFI_8",'SFI_9','SFI_10', 'BMI', 'MMOI',
+#                         'PosCat_2_TEasLine'], axis=1)
 
 # Standardize the data before modelling
 dataset = standardize(dataset)
@@ -197,7 +200,7 @@ dataset = standardize(dataset)
 # Note, if the folder you specify doesn't exist, you'll have to create it
 # These are made for code automation later on
 folder = '../Modeling Results/'
-modelname = ".h5"
+modelname = "model_utcCorr.h5"
 
 ##Shuffling
 dataset = shuffle(dataset)
@@ -206,4 +209,4 @@ X = dataset.iloc[:, 1:(len(dataset.columns) + 1)].values  # Our independent vari
 Y = dataset.iloc[:, 0].values  # Our dependent variable
 
 ##Steps 2-5 are inside the fitting loops method
-modelRun(X, Y, folder, modelname, "")
+modelRun(X, Y, folder, modelname, "UTC Correlation Runs")
