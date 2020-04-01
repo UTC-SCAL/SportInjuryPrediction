@@ -108,7 +108,7 @@ def correlationHeatmap(data, dataSource):
     # Generate color map
     # colormap = sns.diverging_palette(220, 10, as_cmap=True)
     # Generate the heatmap, allowing annotations and place floats in the map
-    sns.heatmap(corr, cmap='Greens', annot=True, fmt='.2f', mask=dropSelf)
+    sns.heatmap(corr, cmap='Greens', annot=False, fmt='.2f', mask=dropSelf)
     # xticks
     plt.xticks(range(len(corr.columns)), corr.columns)
     # yticks
@@ -117,9 +117,10 @@ def correlationHeatmap(data, dataSource):
     plt.show()
 
 
-data = pandas.read_csv("../Data/High School Football Data_cleaned.csv")
-dataSource = "Highschool"
-# data = data.drop(['ID', 'CLEI_PreS_or_S', 'AnyInj_PreS_or_S', 'AnyInj_PreS', 'CLEI_PreS', 'AnyInj_S'], axis=1)
+data = pandas.read_csv("../Data/UTC Football Data_cleaned.csv")
+dataSource = "UTC"
+# data = data.drop(['ID', 'CoV_AvgRT', 'CoV_ConRT', 'CoV_IncRT', 'Cx_Number', 'OWI_1_Any12mo', 'OWI_1_Any12mo',
+#                         'SD_ConRT', 'SD_IncRT', 'SD_AppAvgRT', 'AppAvgEfficiencyIndex'], axis=1)
 data = data.drop(['ID'], axis=1)
 # PCA_testing(data)
 # univariateSelection(data)
