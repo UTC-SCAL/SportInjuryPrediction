@@ -183,10 +183,10 @@ def modelRun(X, Y, folder, modelname, testID):
 # Feather files are typically any file > 800 mb
 # This is done because Pycharm doesn't like CSV files above a certain size (it freezes the system)
 dataset = pandas.read_csv(
-    "../Data/UTC Football Data_cleaned.csv")
-dataset = dataset.reindex(columns=['CLEI_S', 'HiIncRT_507', 'OWI_1_Any12mo', 'RevOWI_Item1', 'SFI_6', "Ht_m", 'AvgRA',
-                                   'OWI_2', 'OWI_1', 'Avg_RT_App', 'SFI_2', 'Mean_ConRT', 'DA_Dec_Asym',
-                                   'CLEI_TimeLoss_Prior12moHx', 'LF_Duration', 'DF_Spd_Asym'])
+    "../Data/High School Football Data_cleaned.csv")
+dataset = dataset.reindex(columns=['CLEI', 'SFWI', 'OWI_Score', 'SFI_Score', 'LoSFI_90', 'IncConRTDiff', 'IncRT',
+                                   'AppCorrectPct', 'Wt_lbs', 'AppCRT', 'IncConCRTDiff', 'ConCRT', 'ConRT', 'Ht_in',
+                                   'AppRT', 'IncCRT'])
 # dataset = dataset.drop(['ID'], axis=1)
 # dataset = dataset.drop(['ID', 'CLEI_PreS_or_S','AnyInj_PreS_or_S','AnyInj_PreS',"CLEI_PreS",'AnyInj_S'], axis=1)
 
@@ -197,7 +197,7 @@ dataset = standardize(dataset)
 # Note, if the folder you specify doesn't exist, you'll have to create it
 # These are made for code automation later on
 folder = '../Modeling Results/'
-modelname = "model_UTCTop15"
+modelname = "model_highschoolTop15.h5"
 
 ##Shuffling
 dataset = shuffle(dataset)
@@ -206,4 +206,4 @@ X = dataset.iloc[:, 1:(len(dataset.columns) + 1)].values  # Our independent vari
 Y = dataset.iloc[:, 0].values  # Our dependent variable
 
 ##Steps 2-5 are inside the fitting loops method
-modelRun(X, Y, folder, modelname, "Deidentified Cleaned")
+modelRun(X, Y, folder, modelname, "Highschool Data Runs")
