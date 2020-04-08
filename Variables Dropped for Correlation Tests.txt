@@ -8,4 +8,17 @@ UTC Dataset:
 Highschool Dataset:
 	['ID', 'SFWI', 'mTBIHx_Number', 'ConCRT', 'AppCRT', 'IncCRT', 'ConCRT'].
 
+Variables Used for Correlation Tests:
+
+UTC Dataset:
+    ['CLEI', 'Cx_Hx', 'HiIncRT_507', 'Cx_Hx_2orMore', 'Sx_RHIorCx', 'CLEI_Prior12moHx', 'CLEI_TimeLoss_Prior12moHx',
+    'Ht_m', 'Wt_kg', 'OWI_1', 'OWI_2', 'OWI_3', 'OWI_4', 'OWI_5', 'OWI_6', 'OWI_7', 'OWI_8', 'OWI_9', 'OWI_10',
+    'OWI_Score', 'SFI_Score', 'PosCat_1_TEasBack', 'Avg_RT_App', 'Mean_ConRT', 'Mean_IncRT', 'AvgRA', 'ConRA',
+    'IncRA', 'ConEfficiencyIndex', 'IncEfficiencyIndex', 'ConflictEffect']
+
+
+Highschool Dataset:
+    ['CLEI', 'mTBIHx', 'IncConRTDiff', 'AppEIndex', 'IncRT', 'ConRT', 'Age', 'RiskFactors', 'RHI_4', 'LoSFI_90',
+    'mTBIPastYear', 'AppRT', 'AppCorrectPct', 'IncConCRTDiff', 'SFI_Score', 'OWI_Score', 'Ht_in', 'Wt_lbs']
+
 Test Used for Feature Selection: Extra Trees Classifier from sklearn

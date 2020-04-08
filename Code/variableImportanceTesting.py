@@ -79,7 +79,8 @@ def univariateSelection(data):
 def featureSelection(data, dataSource):
     features = data.columns.values[1:len(data.columns.values)]
     X = data.loc[:, features].values  # Separating out the target variables
-    y = data.loc[:, ['CLEI']].values  # dependent variable
+    # dependent variable, you'll need to change this based on what dataset you're looking at
+    y = data.loc[:, ['CLEI_S']].values
 
     model = ExtraTreesClassifier()
     model.fit(X, y)
@@ -119,8 +120,8 @@ def correlationHeatmap(data, dataSource):
 
 data = pandas.read_csv("../Data/UTC Football Data_cleaned.csv")
 dataSource = "UTC"
-data = data.drop(['ID'], axis=1)
+data = data.drop(['ID', 'CLEI_PreS_or_S', 'AnyInj_PreS_or_S', 'CLEI_PreS', 'AnyInj_S'], axis=1)
 # PCA_testing(data)
 # univariateSelection(data)
-featureSelection(data, dataSource)
-# correlationHeatmap(data, dataSource)
+# featureSelection(data, dataSource)
+correlationHeatmap(data, dataSource)
