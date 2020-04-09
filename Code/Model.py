@@ -45,14 +45,10 @@ def modelRun(X, Y, folder, modelname, testID):
 
     # Hidden Layers
     # Use for standard sized variable set
+    # Used as baseline for model layers
     model.add(Dense(X.shape[1] - 3, activation='sigmoid'))
     model.add(Dense(X.shape[1] - 6, activation='sigmoid'))
     model.add(Dense(X.shape[1] - 12, activation='sigmoid'))
-
-    # model.add(Dense(X.shape[1] - 10, activation='sigmoid'))
-    # model.add(Dense(X.shape[1] - 15, activation='sigmoid'))
-    # model.add(Dense(X.shape[1] - 20, activation='sigmoid'))
-    # model.add(Dense(X.shape[1] - 30, activation='sigmoid'))
 
     # Output
     model.add(Dense(1, activation='sigmoid'))
@@ -182,7 +178,7 @@ def modelRun(X, Y, folder, modelname, testID):
 
 ##1. Load Data
 dataset = pandas.read_csv("../Data/UTC Football Data_cleaned.csv")
-dataset = dataset.reindex(columns=['CLEI_S', 'GameExposure', 'HiIncRT_507', 'RevOWI_Item1', 'Cx_Hx'])
+# dataset = dataset.reindex(columns=[])
 # dataset = dataset.drop([], axis=1)
 
 # Standardize the data before modelling
@@ -192,7 +188,7 @@ dataset = standardize(dataset)
 # Note, if the folder you specify doesn't exist, you'll have to create it
 # These are made for code automation later on
 folder = '../Modeling Results/'
-modelname = "model_utcGaryVars.h5"
+modelname = ".h5"
 
 ##Shuffling
 dataset = shuffle(dataset)
@@ -201,4 +197,4 @@ X = dataset.iloc[:, 1:(len(dataset.columns) + 1)].values  # Our independent vari
 Y = dataset.iloc[:, 0].values  # Our dependent variable
 
 ##Steps 2-5 are inside the fitting loops method
-modelRun(X, Y, folder, modelname, "Gary's 4 Variables Tests")
+modelRun(X, Y, folder, modelname, "")
