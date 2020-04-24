@@ -177,9 +177,9 @@ def modelRun(X, Y, folder, modelname, testID):
 
 
 # 1. Load Data
-dataset = pandas.read_csv("../Data/UTC Football Data_cleaned.csv")
+dataset = pandas.read_csv("../Data/High School Football Data_cleaned.csv")
 # dataset = dataset.reindex(columns=[])
-# dataset = dataset.drop([], axis=1)
+dataset = dataset.drop(['ID'], axis=1)
 
 # Standardize the data before modelling
 # dataset = standardize(dataset)
@@ -188,7 +188,7 @@ dataset = pandas.read_csv("../Data/UTC Football Data_cleaned.csv")
 # Note, if the folder you specify doesn't exist, you'll have to create it
 # These are made for code automation later on
 folder = '../Modeling Results/'
-modelname = "model_utcFootball_NoMMR.h5"
+modelname = "model_highSchoolFootball_NoMMR.h5"
 
 # Shuffling
 dataset = shuffle(dataset)
@@ -197,4 +197,4 @@ X = dataset.iloc[:, 1:(len(dataset.columns) + 1)].values  # Our independent vari
 Y = dataset.iloc[:, 0].values  # Our dependent variable
 
 # Steps 2-5 are inside the fitting loops method
-modelRun(X, Y, folder, modelname, "UTC Football Modelling without MMR")
+modelRun(X, Y, folder, modelname, "High School Football Modelling without MMR")
