@@ -34,7 +34,7 @@ def standardize(data):
 
 
 def modelRun(X, Y, folder, modelname, testID):
-    ##2. Defining a Neural Network
+    # 2. Defining a Neural Network
     # Model creation
     model = Sequential()
 
@@ -53,7 +53,7 @@ def modelRun(X, Y, folder, modelname, testID):
     # Output
     model.add(Dense(1, activation='sigmoid'))
 
-    ##3. Compiling a model.
+    # 3. Compiling a model
     model.compile(loss='mse', optimizer='nadam', metrics=['accuracy'])
     print(model.summary())
 
@@ -61,7 +61,7 @@ def modelRun(X, Y, folder, modelname, testID):
     file = folder + testID + " Modelling Results.csv"
 
     for i in range(0, 5):
-        ##Splitting data into train and test.
+        # Splitting data into train and test
         X_train, X_test, y_train, y_test = train_test_split(
             X, Y, test_size=0.30, random_state=42)
 
@@ -119,11 +119,11 @@ def modelRun(X, Y, folder, modelname, testID):
         # except:
         #     print("ROC Error, FPR: ", tpr, "TPR: ", tpr)
 
-        ##Confusion Matrix:
+        # Confusion Matrix:
         tn, fp, fn, tp = confusion_matrix(y_test, predictions_round).ravel()
         print(tn, fp, fn, tp)
 
-        ##Adding the scores to the average holder file.
+        # Adding the scores to the average holder file
         avg_holder.at[j, 'Train_Acc'] = scores[1] * 100
         avg_holder.at[j, 'Train_Loss'] = sum(hist.history['loss']) / len(hist.history['loss'])
         avg_holder.at[j, 'Test_Acc'] = accscore1 * 100
@@ -176,25 +176,25 @@ def modelRun(X, Y, folder, modelname, testID):
 # 5. Evaluate that model on some data!
 
 
-##1. Load Data
+# 1. Load Data
 dataset = pandas.read_csv("../Data/UTC Football Data_cleaned.csv")
 # dataset = dataset.reindex(columns=[])
 # dataset = dataset.drop([], axis=1)
 
 # Standardize the data before modelling
-dataset = standardize(dataset)
+# dataset = standardize(dataset)
 
 # Choose a folder for storing all of the results of the code in, including the model itself
 # Note, if the folder you specify doesn't exist, you'll have to create it
 # These are made for code automation later on
 folder = '../Modeling Results/'
-modelname = ".h5"
+modelname = "model_utcFootball_NoMMR.h5"
 
-##Shuffling
+# Shuffling
 dataset = shuffle(dataset)
-##Creating X and Y. Accident is the first column, therefore it is 0.
+# Creating X and Y. Accident is the first column, therefore it is 0.
 X = dataset.iloc[:, 1:(len(dataset.columns) + 1)].values  # Our independent variables
 Y = dataset.iloc[:, 0].values  # Our dependent variable
 
-##Steps 2-5 are inside the fitting loops method
-modelRun(X, Y, folder, modelname, "")
+# Steps 2-5 are inside the fitting loops method
+modelRun(X, Y, folder, modelname, "UTC Football Modelling without MMR")
