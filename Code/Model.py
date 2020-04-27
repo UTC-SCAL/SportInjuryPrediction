@@ -180,7 +180,6 @@ def modelRun(X, Y, folder, modelname, testID):
 dataset = pandas.read_csv("../Data/High School Football Data_cleaned.csv")
 # dataset = dataset.reindex(columns=[])
 dataset = dataset.drop(['ID'], axis=1)
-
 # Standardize the data before modelling
 # dataset = standardize(dataset)
 
